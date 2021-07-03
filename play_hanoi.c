@@ -8,7 +8,8 @@ int main(){
 	int hanoiA[9];
 	int hanoiB[9];
 	int hanoiC[9];
-	char input[3] = { 0,0,0 };
+	char inputA[1] = {0};
+	char inputB[1] = { 0 };
 
 	printf("Insert the number of disks(1~9): ");
 	scanf_s("%d", &disk);
@@ -17,7 +18,7 @@ int main(){
 		hanoiA[i] = i + 1;
 	}
 
-	while (input[0] != 'q') {
+	while (inputA[0] != 'q') {
 
 		printf("%3c %3c %3c\n", 'A', 'B', 'C');
 
@@ -25,13 +26,13 @@ int main(){
 			printf("%3d\n", hanoiA[i]);
 		}
 
-		scanf_s("%c\n", &input);
+		scanf_s("%s %s\n", &inputA[0], &inputB[0]);
 
-		if (input[0] == 'q') {
+		if (inputA[0] == 'q') {
 			return 0;
 		}
 		else {
-			printf("%c %c\n", input[0], input[2]);
+			
 		}
 		
 	}
