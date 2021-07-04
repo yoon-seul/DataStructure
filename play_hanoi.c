@@ -6,7 +6,7 @@
 int main(){	
 	int disk;
 	int hanoi[3][9];
-	char input[3] = { 0,0,0 };
+	char input[4];
 	int moveDisk;
 
 	for (int i = 0; i < 9; i++) {
@@ -24,7 +24,7 @@ int main(){
 		for (int i = 0; i < disk; i++) {
 			printf("%3d %3d %3d\n", hanoi[0][i], hanoi[1][i], hanoi[2][i]);
 		}
-			scanf_s("%s", &input); //disk 이동 받기
+			fgets(input,4,stdin); //disk 이동 받기
 
 		if (input[0] == 'q') {
 			return 0;
