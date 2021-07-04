@@ -27,7 +27,8 @@
 }
 
 bool is_empty(stack_t* s){
-	bool res=true;
+	bool res = true;
+	
 	if (s->top == -1) {
 		return res;
 	}
@@ -66,9 +67,13 @@ void pop(stack_t* s){
 }
 
 void print_stack(stack_t* s){
-
-	/* write your own code here. */
-
+	if (is_empty(s) == true) {
+		exit(1);
+	}
+	while (s->top++) {
+		printf("%3c", peek(s->arr[s->top]));
+	}
+		
 }
 
 /* DO NOT define the main function in this file */
