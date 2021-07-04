@@ -22,11 +22,9 @@ int main(){
 
 		printf("%3c %3c %3c\n", 'A', 'B', 'C');
 
-		for (int i = 0; i < disk; i++) {
-			printf("%3d\n", hanoiA[i]);
-		}
+		print_stack(hanoiA);
 
-		scanf_s("%[^\n]s", &input); //disk 이동 받기
+		scanf_s("%c", &input); //disk 이동 받기
 
 		if (input[0] == 'q') {
 			return 0;
