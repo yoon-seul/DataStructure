@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #define SIZE 9
+#define _CRT_SECURE_NO_WARNINGS
 
 typedef struct {
 	int item[SIZE];
@@ -28,7 +29,7 @@ bool IsEmpty(Stack* pstack)
 int Peek(Stack* pstack)
 {
 	if (IsEmpty(pstack)) {
-		exit(1);
+		return -1;
 	}
 	return pstack->item[pstack->top];
 }
@@ -48,42 +49,69 @@ void Pop(Stack* pstack) {
 	--(pstack->top);
 }
 
+int exchange(int x);
+
 int main()
 {
 	int num;
-	int rodA[SIZE], rodB[SIZE], rodC[SIZE];
-	char from, to;
+	int rod[3][SIZE];
+	char from='0', to;
 	int move;
 
-	scanf_s("%d", &num);
+	fscanf(stdin,"%d", &num);
 
-	InitStack(&rodA);
-	InitStack(&rodB);
-	InitStack(&rodC);
+	InitStack(&rod[0]);
+	InitStack(&rod[1]);
+	InitStack(&rod[2]);
 
 	for (int i = 0; i < num+1; i++) {
-		Push(&rodA, i+1);
+		Push(&rod[0], i+1);
+		Push(&rod[1], 0);
+		Push(&rod[2], 0);
 	}
 
-	while (true) {
-
+	while (from != 'q') {
 		printf("%3c %3c %3c\n", 'A', 'B', 'C');
-		for (int i = 0; i < num; i++) {
-			printf("%3d %3d %3d\n", rodA[i], rodB[i], rodC[i]);
+		for (int i = 0;i<num; i++) {
+			printf("%3d %3d %3d\n", rod[0][i], rod[1][i], rod[2][i]);
 		}
-		scanf_s("%c %c", &from, &to);
-		
-		if (from == 'q')
+
+
+		fscanf(stdin,stdin,"%c %c", &from, &to);
+
+		if (from == 'q') {
 			return 0;
-		switch (from) {
-			case 'A' :
-				move = Peek(&rodA);
-				Pop(&rodA);
-				if (to == 'B') {
-					Push(&rodB, move);
-				}
-
 		}
 
+
+		int peekF, peekT;
+		int numF=exchange(from);
+		int numT = exchange(to);
+		
+		peekF = Peek(&rod[numF]);
+		peekT = Peek(&rod[numT]);
+
+		if (peekF > peekT) {
+			printf("Invalid Move");
+		}
+
+		else {
+			Pop(&rod[numF]);
+			Push(&rod[numT],peekF);
+		}
+
+		
+	}
+}
+
+int exchange(int x)
+{
+	switch (x) {
+		case 'A':
+			return 0;
+		case 'B':
+			return 1;
+		case 'C':
+			return 2;
 	}
 }
