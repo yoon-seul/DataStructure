@@ -22,8 +22,7 @@ bool IsFull(Stack* pstack)
 
 bool IsEmpty(Stack* pstack)
 {
-	if (pstack->top == -1)
-		return true;
+	return pstack->top == -1; 
 }
 
 int Peek(Stack* pstack)
@@ -31,7 +30,7 @@ int Peek(Stack* pstack)
 	if (IsEmpty(pstack)) {
 		return -1;
 	}
-	return pstack->item[pstack->top];
+	return pstack->item[pstack->top];//have to handle to address but handle the value
 }
 
 void Push(Stack* pstack, int disk)
@@ -55,10 +54,9 @@ int main()
 {
 	int num;
 	int rod[3][SIZE];
-	char from='0', to;
-	int move;
+	char from='0',to;
 
-	fscanf(stdin,"%d", &num);
+	scanf("%d", &num);
 
 	InitStack(&rod[0]);
 	InitStack(&rod[1]);
@@ -66,9 +64,14 @@ int main()
 
 	for (int i = 0; i < num+1; i++) {
 		Push(&rod[0], i+1);
+	}
+	for (int i = 0; i < num + 1; i++) {
 		Push(&rod[1], 0);
+	}
+	for (int i = 0; i < num + 1; i++) {
 		Push(&rod[2], 0);
 	}
+	
 
 	while (from != 'q') {
 		printf("%3c %3c %3c\n", 'A', 'B', 'C');
@@ -77,27 +80,32 @@ int main()
 		}
 
 
-		fscanf(stdin,stdin,"%c %c", &from, &to);
+		scanf("%c %c", &from, &to);
 
-		if (from == 'q') {
+		if (from == 'q')
 			return 0;
-		}
-
-
+		
 		int peekF, peekT;
-		int numF=exchange(from);
+		int numF = exchange(from);
 		int numT = exchange(to);
 		
 		peekF = Peek(&rod[numF]);
 		peekT = Peek(&rod[numT]);
 
-		if (peekF > peekT) {
-			printf("Invalid Move");
+		if (peekT == -1) {
+			Pop(&rod[numF]);
+			Push(&rod[numT], peekF);
 		}
 
 		else {
-			Pop(&rod[numF]);
-			Push(&rod[numT],peekF);
+			if (peekF > peekT) {
+				printf("Invalid Move\n");
+			}
+
+			else {
+				Pop(&rod[numF]);
+				Push(&rod[numT], peekF);
+			}
 		}
 
 		
